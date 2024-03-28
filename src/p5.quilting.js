@@ -269,7 +269,7 @@ export function weightedVoronoiDistributionAndGraph(center, shapeFunction, numOf
         for (let i = 0; i < seed.length; i++) {
             seed[i] += (centroids[i] - seed[i]);
         }
-        return new d3.Delaunay(seed).voronoi([voronoi.xmin, voronoi.ymin, voronoi.xmax, voronoi.ymax]);
+        return new Delaunay(seed).voronoi([voronoi.xmin, voronoi.ymin, voronoi.xmax, voronoi.ymax]);
     }
 
     let seed = [];
