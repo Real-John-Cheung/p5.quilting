@@ -1,0 +1,32 @@
+{
+  "name": "p5.quilting",
+  "version": "1.0.0",
+  "description": "a simple js library for generate quilting pattern",
+  "main": "src/p5.quilting.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Real-John-Cheung/p5.quilting.git"
+  },
+  "keywords": [
+    "quilting",
+    "pattern-generation"
+  ],
+  "author": "JohnC",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Real-John-Cheung/p5.quilting/issues"
+  },
+  "homepage": "https://github.com/Real-John-Cheung/p5.quilting#readme",
+  "dependencies": {
+    "d3-delaunay": "^6.0.4",
+    "kd-tree-javascript": "^1.0.3"
+  },
+  "devDependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
