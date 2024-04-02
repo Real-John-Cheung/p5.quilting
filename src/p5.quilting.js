@@ -370,6 +370,69 @@ export function primsSpanningTree(points) {
 /**
  * 
  * @param {Array} points [x1,y1,x2,y2,...]
+ * @param {Array} graph 
+ * @returns 
+ */
+export function kruskalsSpanningTree(points, graph){
+    const v = points.length / 2;
+    
+    const union = (subsets, x, y) => {
+      let rootX = findRoot(subsets, x); 
+      let rootY = findRoot(subsets, y); 
+      if (subsets[rootY].rank < subsets[rootX].rank) { 
+          subsets[rootY].parent = rootX; 
+      } 
+      else if (subsets[rootX].rank < subsets[rootY].rank) { 
+          subsets[rootX].parent = rootY; 
+      } 
+      else { 
+          subsets[rootY].parent = rootX; 
+          subsets[rootX].rank++; 
+      } 
+    }
+  
+    const findRoot = (subsets, i) => {
+      if (subsets[i].parent === i) return subsets[i].parent; 
+      subsets[i].parent = findRoot(subsets, subsets[i].parent); 
+      return subsets[i].parent; 
+    }
+    let nodes = [];
+    let edges = [];
+    for (let i = 0; i < points.length; i += 2) {
+      nodes.push({x: points[i], y: points[i + 1], id: i / 2, children: []});
+    }
+    for (let pair of graph) {
+      const [a,b] = pair.split(" ").map(it => parseInt(it));
+      const w = (nodes[a].x - nodes[b].x) ** 2 + (nodes[a].y - nodes[b].y) ** 2;
+      edges.push({start:nodes[a], end:nodes[b], weight:w});
+    }
+    edges.sort((a,b) => a.weight - b.weight);
+    console.log(edges)
+  
+    let j = 0, numberOfEdge = 0;
+    let subsets = [];
+    let res = [];
+    for (let i = 0; i < v; ++i) {
+      subsets.push({parent:i, rank:0});
+    }
+  
+    while (numberOfEdge < v-1) {
+      let nextEdge = edges[j];
+      let x = findRoot(subsets, nextEdge.start.id);
+      let y = findRoot(subsets, nextEdge.end.id);
+      if (x != y) { 
+          res[numberOfEdge] = nextEdge; 
+          union(subsets, x, y); 
+          numberOfEdge++; 
+      } 
+      j++;
+    }
+    return res
+  }
+
+/**
+ * 
+ * @param {Array} points [x1,y1,x2,y2,...]
  * @param {Array} graph corresponding graph from points
  * @param {number} mode 0,1,2,oe 3
  * @returns 
